@@ -1,6 +1,6 @@
 node {
     stage('Build') { // for display purposes
-        sh 'docker image build --tag bfulle200/cw2:1.0 .'
+        sh 'docker image build --tag bfulle200/cw2:1.0'
         sh 'docker container stop cw2'
         sh 'docker container rm cw2'
         sh 'docker container run --detach --publish 80:80 --name cw2 bfulle200/cw2:1.0'
