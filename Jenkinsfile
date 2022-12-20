@@ -37,7 +37,6 @@ node {
     stage('Set sshagent') {
         sshagent(['my-ssh-key']) {
         sh 'scp /Users/exampleUser/home/aws/listDProcessesNativeStacks.sh ip-172-31-76-131.ec2.internal:/home/ubuntu'
-        sh 'yes'
         }
 
     }
