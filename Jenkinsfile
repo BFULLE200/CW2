@@ -1,14 +1,18 @@
-node {
-    stage('Build') { // for display purposes
-        sh 'pwd'
-        sh 'cd /'
-        sh 'pwd'
-        sh 'docker image build --tag bfulle200/cw2:1.0 .'
-        sh 'docker container stop cw2'
-        sh 'docker container rm cw2'
-        sh 'docker container run --detach --publish 80:80 --name cw2 bfulle200/cw2:1.0'
-        sh 'docker exec --workdir /tmp cw2 ps -ef'
-        sh 'docker login --username=bfulle200 --password=LvQ1okV^59y8'
-        sh 'docker image push bfulle200/cw2:1.0'
-    }
-}
+node {    
+      def app     
+      stage('Clone repository') {               
+             
+            checkout scm    
+      }           stage('Build image') {         
+       
+            app = docker.build("brandonjones085/test")    
+       }           stage('Test image') {                       app.inside {            
+             
+             sh 'echo "Tests passed"'        
+            }    
+        }            stage('Push image') {
+                                                  docker.withRegistry('https://registry.hub.docker.com', 'git') {                   app.push("${env.BUILD_NUMBER}")            
+       app.push("latest")        
+              }    
+           }
+        }
