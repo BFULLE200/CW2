@@ -1,5 +1,6 @@
 node {
     stage('Build') { // for display purposes
+        sh 'pwd'
         sh 'docker image build --tag bfulle200/cw2:1.0 .'
         sh 'docker container stop cw2'
         sh 'docker container rm cw2'
