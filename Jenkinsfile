@@ -33,4 +33,11 @@ node {
             app.push("latest")
         }
     }
+    
+    stage('Set sshagent') {
+        sshagent(['my-ssh-key']) {
+        sh 'scp /Users/exampleUser/home/aws/listDProcessesNativeStacks.sh ubuntu@ip-34.233.119.232.ec2.internal:/home/ubuntu'
+        }
+
+    }
 }
